@@ -3,7 +3,8 @@ const { createApp } = Vue
 const app = createApp({
   data() {
     return {
-      product: 'Training',}
+      product: 'Training',
+      description: 'Vue.js Course'}
   }
 })
 
