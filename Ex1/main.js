@@ -1,9 +1,9 @@
-import { createApp } from 'vue'
+const { createApp } = Vue
 
 const app = createApp({
   data() {
     return {
-      product: 'Chaussettes',}
+      product: 'Training',}
   }
 })
 
