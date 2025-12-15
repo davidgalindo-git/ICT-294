@@ -3,11 +3,11 @@ import {computed, ref} from 'vue'
 
 const firstname = ref('')
 const lastname = ref('')
-const birthday = ref('')
+const birthdate = ref('')
 const gender = ref('')
-const character = ref('')
-const motivation = ref('')
-const hobbies = ref([''])
+const character = ref('5')
+const description = ref('')
+const hobbies = ref([])
 
 const emit = defineEmits(['review-submitted'])
 
@@ -15,10 +15,10 @@ function onSubmit() {
   const studentForm = {
     firstname: firstname.value,
     lastname: lastname.value,
-    birthday: birthday.value,
+    birthdate: birthdate.value,
     gender: gender.value,
-    character: character.value,
-    motivation: motivation.value,
+    character: currentEmoji.value,
+    description: description.value,
     hobbies: hobbies.value
   }
   console.log(studentForm)
@@ -27,11 +27,11 @@ function onSubmit() {
   // remettre les valeurs par défaut après submit review
   firstname.value = ''
   lastname.value = ''
-  birthday.value = ''
+  birthdate.value = ''
   gender.value = ''
-  character.value = ''
-  motivation.value = ''
-  hobbies.value = ['']
+  character.value = '5'
+  description.value = ''
+  hobbies.value = []
 }
 
 const genderOptions = ref([
@@ -50,9 +50,8 @@ const hobbiesOptions = ref([
 
 const MIN_VALUE = 0
 const MAX_VALUE = 9
-const moodValue = ref(5)
 const currentEmoji = computed(() => {
-  const index = moodValue.value
+  const index = character.value
   const emojis = ["😢", "😁", "😊", "😒", "😃", "😐", "😖", "😤", "😟", "😆"] // la touche windows + "." permettent de choisir des emojis
   return emojis[index];
 })
@@ -70,11 +69,11 @@ const currentEmoji = computed(() => {
         <label for="lastname">Nom:</label>
         <input type="text" id="lastname" v-model="lastname">
       </div>
-  </div>
+    </div>
 
     <div class="review-form-row">
-      <label for="birthday">Date de naissance:</label>
-      <input type="date" id="birthday" v-model="birthday">
+      <label for="description">Description:</label>
+      <textarea id="description" v-model="description"></textarea>
     </div>
 
     <div class="review-form-row">
@@ -95,30 +94,11 @@ const currentEmoji = computed(() => {
     </div>
 
     <div class="review-form-row">
-      <label for="character">Caractère:</label>
-      <input
-          type="range"
-          :min="MIN_VALUE"
-          :max="MAX_VALUE"
-          step="1"
-          v-model.number="moodValue"
-          class="form-range"
-          id="character"
-      >
-      <span>{{ currentEmoji }}</span>
-    </div>
-
-    <div class="review-form-row">
-      <label for="motivation">Motivation:</label>
-      <textarea id="motivation" v-model="motivation"></textarea>
-    </div>
-
-    <div class="review-form-row">
       <label for="hobbies">Hobbies:</label>
       <div v-for="option in hobbiesOptions" :key="option.value" class="form-check">
         <input
             class="form-check-input"
-            type="radio"
+            type="checkbox"
             :id="option.value"
             :value="option.value"
             v-model="hobbies"
@@ -128,6 +108,25 @@ const currentEmoji = computed(() => {
           {{ option.label }}
         </label>
       </div>
+    </div>
+
+    <div class="review-form-row">
+      <label for="birthdate">Date de naissance:</label>
+      <input type="date" id="birthdate" v-model="birthdate">
+    </div>
+
+    <div class="review-form-row">
+      <label for="character">Caractère:</label>
+      <input
+          type="range"
+          :min="MIN_VALUE"
+          :max="MAX_VALUE"
+          step="1"
+          v-model.number="character"
+          class="form-range"
+          id="character"
+      >
+      <span>{{ currentEmoji }}</span>
     </div>
 
     <input class="button" type="submit" value="Valider"/>
