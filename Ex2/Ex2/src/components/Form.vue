@@ -35,9 +35,9 @@ function onSubmit() {
 }
 
 const genderOptions = ref([
-    { value: 'male', label: 'M' },
-    { value: 'female', label: 'F' },
-    { value: 'other', label: 'Autre' },
+    { value: 'Masculin', label: 'M' },
+    { value: 'Féminin', label: 'F' },
+    { value: 'Autre', label: 'Autre' },
 ])
 
 const hobbiesOptions = ref([
