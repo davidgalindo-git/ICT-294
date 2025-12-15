@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import {computed, ref} from 'vue'
 
 const firstname = ref('')
 const lastname = ref('')
@@ -48,12 +48,14 @@ const hobbiesOptions = ref([
     { value: 'actualite', label: 'Actualité' },
 ])
 
-function getEmojiByMood(mood) {
-  let emojis = ["😢", "😁", "😊", "😒", "😃", "😐", "😖", "😤", "😟", "😆"] // la touche windows + "." permettent de choisir des emojis
-  let index = Math.floor(mood / 10) - 1;
-  if (index === -1) index = 0;
+const MIN_VALUE = 0
+const MAX_VALUE = 9
+const moodValue = ref(5)
+const currentEmoji = computed(() => {
+  const index = moodValue.value
+  const emojis = ["😢", "😁", "😊", "😒", "😃", "😐", "😖", "😤", "😟", "😆"] // la touche windows + "." permettent de choisir des emojis
   return emojis[index];
-}
+})
 
 </script>
 <template>
@@ -90,7 +92,16 @@ function getEmojiByMood(mood) {
 
     <div class="review-form-row">
       <label for="character">Caractère:</label>
-      <textarea id="character" v-model="character"></textarea>
+      <input
+          type="range"
+          :min="MIN_VALUE"
+          :max="MAX_VALUE"
+          step="1"
+          v-model.number="moodValue"
+          class="form-range"
+          id="character"
+      >
+      <span>{{ currentEmoji }}</span>
     </div>
 
     <div class="review-form-row">
