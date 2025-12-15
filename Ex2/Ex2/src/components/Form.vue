@@ -34,6 +34,12 @@ function onSubmit() {
   hobbies.value = ['']
 }
 
+const genderOptions = ref([
+    { value: 'male', label: 'M' },
+    { value: 'female', label: 'F' },
+    { value: 'other', label: 'Autre' },
+])
+
 function getEmojiByMood(mood) {
   let emojis = ["😢", "😁", "😊", "😒", "😃", "😐", "😖", "😤", "😟", "😆"] // la touche windows + "." permettent de choisir des emojis
   let index = Math.floor(mood / 10) - 1;
@@ -47,22 +53,31 @@ function getEmojiByMood(mood) {
     <h3>Entrez vos données</h3>
     <div class="review-form-row">
       <label for="firstname">Prénom:</label>
-      <input id="firstname" v-model="firstname"/>
-    </div>
-
-    <div class="review-form-row">
+      <input type="text" id="firstname" v-model="firstname"/>
       <label for="lastname">Nom:</label>
-      <textarea id="lastname" v-model="lastname"></textarea>
-    </div>
+      <input type="text" id="lastname" v-model="lastname">
+  </div>
 
     <div class="review-form-row">
       <label for="birthday">Date de naissance:</label>
-      <textarea id="birthday" v-model="birthday"></textarea>
+      <input type="date" id="birthday" v-model="birthday">
     </div>
 
     <div class="review-form-row">
       <label for="gender">Genre:</label>
-      <textarea id="gender" v-model="gender"></textarea>
+      <div v-for="option in genderOptions" :key="option.value" class="form-check">
+        <input
+        class="form-check-input"
+        type="radio"
+        :id="option.value"
+        :value="option.value"
+        v-model="gender"
+        name="gender"
+        >
+        <label class="form-check-label" :for="option.value">
+          {{ option.label }}
+        </label>
+      </div>
     </div>
 
     <div class="review-form-row">
