@@ -61,11 +61,15 @@ const currentEmoji = computed(() => {
 <template>
   <form class="review-form" @submit.prevent="onSubmit">
     <h3>Entrez vos données</h3>
-    <div class="review-form-row">
-      <label for="firstname">Prénom:</label>
-      <input type="text" id="firstname" v-model="firstname"/>
-      <label for="lastname">Nom:</label>
-      <input type="text" id="lastname" v-model="lastname">
+    <div class="review-form-row names">
+      <div class="name">
+        <label for="firstname">Prénom:</label>
+        <input type="text" id="firstname" v-model="firstname"/>
+      </div>
+      <div class="name">
+        <label for="lastname">Nom:</label>
+        <input type="text" id="lastname" v-model="lastname">
+      </div>
   </div>
 
     <div class="review-form-row">
@@ -129,3 +133,20 @@ const currentEmoji = computed(() => {
     <input class="button" type="submit" value="Valider"/>
   </form>
 </template>
+<style scoped>
+.review-form {
+  text-align: left;
+}
+.review-form-row {
+  display: flex;
+  flex-direction: column;
+}
+.names {
+  display: flex;
+  flex-direction: row;
+}
+.name {
+  display: flex;
+  flex-direction: column;
+}
+</style>
