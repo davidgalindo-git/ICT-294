@@ -1,31 +1,36 @@
 <script setup>
-import {ref} from "vue";
+import {ref, onMounted} from "vue";
 import EventCard from "./EventCard.vue";
+import EventService from "../services/EventService.js";
 
-const events = ref([
-  {
-    id: 1,
-    time: '18:00',
-    date: '2025-12-10',
-    title: 'Soirée jeux de société',
-  },
-  {
-    id: 2,
-    time: '14:30',
-    date: '2025-12-15',
-    title: 'Atelier Vue 3',
-  },
-  {
-    id: 3,
-    time: '09:00',
-    date: '2025-12-20',
-    title: 'Petit-déjeuner de classe',
-  },
-])
+
+const events = ref([])
+const isLoading = ref(false)
+const error = ref(null)
+
+onMounted(async () => {
+  isLoading.value = true
+  error.value = null
+
+  try{
+    const response = await EventService.getEvents()
+    events.value = response.data
+    console.log(response)
+    } catch(err){
+    console.log(err)
+    error.value = "Impossible de charger les évènements."
+  }finally{
+    isLoading.value = false
+  }
+})
 </script>
 
 <template>
-  <div class="event-container" v-for="myEvent in events" :key="myEvent.id">
+  <div v-if="isLoading">
+    Loading ...
+  </div>
+  <div v-else-if="error">{{ error }}</div>
+  <div v-else class="event-container" v-for="myEvent in events" :key="myEvent.id">
     <EventCard :myEvent="myEvent" />
   </div>
 </template>
