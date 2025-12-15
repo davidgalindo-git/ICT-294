@@ -40,6 +40,14 @@ const genderOptions = ref([
     { value: 'other', label: 'Autre' },
 ])
 
+const hobbiesOptions = ref([
+    { value: 'sport', label: 'Sport' },
+    { value: 'environnement', label: 'Environnement' },
+    { value: 'science', label: 'Science' },
+    { value: 'technologie', label: 'Technologie' },
+    { value: 'actualite', label: 'Actualité' },
+])
+
 function getEmojiByMood(mood) {
   let emojis = ["😢", "😁", "😊", "😒", "😃", "😐", "😖", "😤", "😟", "😆"] // la touche windows + "." permettent de choisir des emojis
   let index = Math.floor(mood / 10) - 1;
@@ -92,7 +100,19 @@ function getEmojiByMood(mood) {
 
     <div class="review-form-row">
       <label for="hobbies">Hobbies:</label>
-      <textarea id="hobbies" v-model="hobbies"></textarea>
+      <div v-for="option in hobbiesOptions" :key="option.value" class="form-check">
+        <input
+            class="form-check-input"
+            type="radio"
+            :id="option.value"
+            :value="option.value"
+            v-model="hobbies"
+            name="hobbies"
+        >
+        <label class="form-check-label" :for="option.value">
+          {{ option.label }}
+        </label>
+      </div>
     </div>
 
     <input class="button" type="submit" value="Valider"/>
