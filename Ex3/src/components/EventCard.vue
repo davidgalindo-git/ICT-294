@@ -11,8 +11,8 @@ const props = defineProps({
 
 <template>
   <div class="event-card">
-    <h4>{{ props.myEvent.title }}</h4>
     <span>{{ props.myEvent.date }} {{ props.myEvent.time }}</span>
+    <h4>{{ props.myEvent.title }}</h4>
   </div>
 </template>
 
